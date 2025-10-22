@@ -7,7 +7,7 @@ const Projects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/projects`);
+        const res = await fetch("https://portfolio-back-end-4aer.onrender.com/api/projects");
         const data = await res.json();
         setProjects(data);
       } catch (error) {
