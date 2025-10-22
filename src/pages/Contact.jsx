@@ -8,6 +8,7 @@ const Contact = () => {
   });
   const [status, setStatus] = useState(null); // success, error
   const [loading, setLoading] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,7 +20,7 @@ const Contact = () => {
     setStatus(null);
 
     try {
-      const res = await fetch("https://portfolio-back-end-4aer.onrender.com/api/contact", {
+      const res = await fetch(`${API_URL}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
