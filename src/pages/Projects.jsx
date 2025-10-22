@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/projects");
+        const res = await fetch(`${API_URL}/api/projects`);
         const data = await res.json();
         setProjects(data);
       } catch (error) {
@@ -15,7 +16,8 @@ const Projects = () => {
     };
 
     fetchProjects();
-  }, []);
+  }, [API_URL]);
+
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#e0f2fe] to-[#dbeafe] py-16 px-6">
