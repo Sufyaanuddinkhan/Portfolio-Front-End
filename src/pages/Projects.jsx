@@ -60,22 +60,6 @@ const Projects = () => {
                       Live Demo
                     </a>
                   )}
-                  <a
-                    href={project.githubLinkf}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#D97706] hover:text-[#B45309]"
-                  >
-                    GitHub Front-End
-                  </a>
-                  <a
-                    href={project.githubLinkb}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#D97706] hover:text-[#B45309]"
-                  >
-                    GitHub Back-End
-                  </a>
                 </div>
               </div>
             </div>
