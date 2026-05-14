@@ -1,70 +1,274 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navLinks = (
-    <>
-      <li>
-        <Link to="/" className="hover:text-[#06B6D4] transition" onClick={() => setMenuOpen(false)}>
-          Home
-        </Link>
-      </li>
-      <li>
-        <Link className="hover:text-[#06B6D4] transition" to="/education" onClick={() => setMenuOpen(false)}>
-          Education
-        </Link>
-      </li>
-      <li>
-        <Link className="hover:text-[#06B6D4] transition" to="/certifications" onClick={() => setMenuOpen(false)}>
-          Certifications
-        </Link>
-      </li>
-      <li>
-        <Link className="hover:text-[#06B6D4] transition" to="/skills" onClick={() => setMenuOpen(false)}>
-          Skills
-        </Link>
-      </li>
-      <li>
-        <Link to="/projects" className="hover:text-[#06B6D4] transition" onClick={() => setMenuOpen(false)}>
-          Projects
-        </Link>
-      </li>
-      <li>
-        <Link to="/contact" className="hover:text-[#06B6D4] transition" onClick={() => setMenuOpen(false)}>
-          Contact
-        </Link>
-      </li>
-    </>
-  );
+  const location = useLocation();
+
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "Education", path: "/education" },
+    { name: "Certifications", path: "/certifications" },
+    { name: "Skills", path: "/skills" },
+    { name: "Projects", path: "/projects" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
-    <nav className="flex justify-between items-center px-6 py-4 bg-slate-900 text-white shadow-md relative overflow-visible">
-      <h1 className="text-lg sm:text-2xl font-bold">
-        <Link to="/" className="hover:text-blue-200 transition">
-          Mohd Sufyaanuddin Khan&apos;s Portfolio
-        </Link>
-      </h1>
-      {/* Hamburger Icon */}
-      <button
-        className="sm:hidden flex flex-col justify-center items-center w-8 h-8"
-        onClick={() => setMenuOpen((prev) => !prev)}
-        aria-label="Toggle menu"
+    <>
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+        }}
+        className="
+          fixed
+          top-0
+          left-0
+          w-full
+          z-50
+          px-4
+          md:px-8
+          py-4
+        "
       >
-        <span className={`block w-6 h-0.5 bg-white mb-1 transition-transform ${menuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
-        <span className={`block w-6 h-0.5 bg-white mb-1 transition-opacity ${menuOpen ? "opacity-0" : ""}`}></span>
-        <span className={`block w-6 h-0.5 bg-white transition-transform ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
-      </button>
-      {/* Desktop Menu */}
-      <ul className="hidden sm:flex gap-6">{navLinks}</ul>
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <ul className="absolute top-full left-0 w-full bg-slate-900 flex flex-col gap-4 py-4 px-6 sm:hidden shadow-md z-10">
-          {navLinks}
-        </ul>
-      )}
-    </nav>
+        {/* Outer Glow */}
+        <div className="absolute inset-0 bg-cyan-500/5 blur-3xl pointer-events-none"></div>
+
+        <div
+          className="
+            max-w-7xl
+            mx-auto
+            flex
+            items-center
+            justify-between
+            px-6
+            py-4
+            rounded-2xl
+            border
+            border-white/10
+            bg-white/5
+            backdrop-blur-2xl
+            shadow-[0_8px_32px_rgba(0,0,0,0.35)]
+          "
+        >
+          {/* Logo */}
+          <Link
+            to="/"
+            className="
+              relative
+              text-lg
+              sm:text-xl
+              md:text-2xl
+              font-black
+              tracking-wide
+              text-white
+              group
+            "
+          >
+            <span
+              className="
+                bg-gradient-to-r
+                from-cyan-400
+                via-blue-400
+                to-purple-400
+                bg-clip-text
+                text-transparent
+              "
+            >
+              Sufyaan
+            </span>
+
+            <span className="text-white ml-2">Portfolio</span>
+
+            <div
+              className="
+                absolute
+                -bottom-1
+                left-0
+                w-0
+                h-[2px]
+                bg-cyan-400
+                transition-all
+                duration-500
+                group-hover:w-full
+              "
+            ></div>
+          </Link>
+
+          {/* Desktop Nav */}
+          <ul className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+
+              return (
+                <li key={item.name}>
+                  <Link
+                    to={item.path}
+                    className="
+                      relative
+                      text-sm
+                      uppercase
+                      tracking-widest
+                      font-medium
+                      text-gray-300
+                      hover:text-white
+                      transition-colors
+                      duration-300
+                    "
+                  >
+                    {item.name}
+
+                    {isActive && (
+                      <motion.div
+                        layoutId="navbar-indicator"
+                        className="
+                          absolute
+                          -bottom-2
+                          left-0
+                          right-0
+                          h-[2px]
+                          rounded-full
+                          bg-cyan-400
+                        "
+                      />
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Mobile Button */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="
+              md:hidden
+              flex
+              items-center
+              justify-center
+              w-11
+              h-11
+              rounded-xl
+              bg-white/10
+              border
+              border-white/10
+              text-white
+              backdrop-blur-xl
+            "
+          >
+            {menuOpen ? (
+              <FaTimes className="text-lg" />
+            ) : (
+              <HiOutlineMenuAlt3 className="text-2xl" />
+            )}
+          </motion.button>
+        </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: -20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+                y: -20,
+              }}
+              transition={{
+                duration: 0.3,
+              }}
+              className="
+                md:hidden
+                mt-4
+                overflow-hidden
+              "
+            >
+              <div
+                className="
+                  rounded-2xl
+                  border
+                  border-white/10
+                  bg-black/40
+                  backdrop-blur-2xl
+                  shadow-2xl
+                  p-6
+                "
+              >
+                <ul className="flex flex-col gap-5">
+                  {navItems.map((item, index) => {
+                    const isActive = location.pathname === item.path;
+
+                    return (
+                      <motion.li
+                        key={item.name}
+                        initial={{
+                          opacity: 0,
+                          x: -20,
+                        }}
+                        animate={{
+                          opacity: 1,
+                          x: 0,
+                        }}
+                        transition={{
+                          delay: index * 0.08,
+                        }}
+                      >
+                        <Link
+                          to={item.path}
+                          onClick={() => setMenuOpen(false)}
+                          className={`
+                            flex
+                            items-center
+                            justify-between
+                            text-lg
+                            font-medium
+                            transition-all
+                            duration-300
+                            ${
+                              isActive
+                                ? "text-cyan-400"
+                                : "text-gray-300 hover:text-white"
+                            }
+                          `}
+                        >
+                          {item.name}
+
+                          {isActive && (
+                            <motion.div
+                              layoutId="mobile-indicator"
+                              className="
+                                w-2
+                                h-2
+                                rounded-full
+                                bg-cyan-400
+                              "
+                            />
+                          )}
+                        </Link>
+                      </motion.li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </>
   );
 };
 

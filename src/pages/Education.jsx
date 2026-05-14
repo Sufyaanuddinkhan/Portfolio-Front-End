@@ -1,4 +1,4 @@
-import {  motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { FaGraduationCap, FaBookOpen, FaLaptopCode } from "react-icons/fa";
 
 const Education = () => {
@@ -6,119 +6,330 @@ const Education = () => {
     {
       id: 1,
       title: "10th Grade High School",
-      institution: "St Paul's High School - 2020",
-      year: "Completed",
+      institution: "St Paul's High School",
+      year: "2020",
       description:
-        "Successfully completed 10th grade with a strong foundation in core subjects.",
-        icon: <FaGraduationCap className="text-white text-4xl transition transform hover:scale-110" title="High School"/>, // 🎓
-
+        "Successfully completed 10th grade with a strong foundation in core academic subjects and analytical learning.",
+      icon: <FaGraduationCap />,
     },
     {
       id: 2,
-      title: "Intermediate - Mathematics - Physics - Chemistry(MPC)",
+      title: "Intermediate - Mathematics, Physics & Chemistry",
       institution: "M S Junior College",
-      year: "Completed",
+      year: "2022",
       description:
         "Completed intermediate education with specialization in Mathematics, Physics, and Chemistry.",
-        icon: <FaBookOpen className="text-white text-4xl transition transform hover:scale-110" title="Intermediate"/>, // 🎓
+      icon: <FaBookOpen />,
     },
     {
       id: 3,
       title: "B.Tech - Computer Science Engineering",
       institution: "Shadan College of Engineering & Technology",
-      year: "Currently Pursuing (4th Year)",
+      year: "Currently Pursuing",
       description:
-        "Currently in the final year of Computer Science Engineering, focusing on software development, algorithms, and full-stack web development.",
-        icon: <FaLaptopCode className="text-white text-4xl transition transform hover:scale-110" title="Bachelor's Degree" />, // 🎓
+        "Final year Computer Science Engineering student focused on software engineering, full-stack web development, and modern technologies.",
+      icon: <FaLaptopCode />,
     },
   ];
 
-// Certifications Timeline Data
-  const certificationsData = [
-  {
-    id: 1,
-    title: "MERN Stack Web Development",
-    institution: "Udemy",
-    year: "2025",
-    description:
-      "Comprehensive course covering MongoDB, Express.js, React, and Node.js for full-stack web development.",
-    certificateUrl: "https://example.com/mern-cert",
-  },
-  {
-    id: 2,
-    title: "Data Structures & Algorithms",
-    institution: "Coursera",
-    year: "2024",
-    description:
-      "In-depth understanding of algorithms, data structures, and problem-solving techniques.",
-    certificateUrl: "https://example.com/dsa-cert",
-  },
-  {
-    id: 3,
-    title: "Cloud Computing Fundamentals",
-    institution: "AWS Academy",
-    year: "2023",
-    description:
-      "Learned the essentials of cloud services, deployment strategies, and serverless computing.",
-    certificateUrl: "https://example.com/cloud-cert",
-  },
-];
-
-
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {},
     show: {
-      opacity: 1,
       transition: {
-        staggerChildren: 0.5, // Delay between each card animation
+        staggerChildren: 0.2,
       },
     },
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 0 },
+    hidden: {
+      opacity: 0,
+      y: 60,
+    },
     show: {
       opacity: 1,
       y: 0,
-      transition: { type:"spring", stiffness: 120, duration: 0.6, ease: "easeOut" },
+      transition: {
+        duration: 0.7,
+        ease: "easeOut",
+      },
     },
   };
 
   return (
-    <section className="max-w-4xl mx-auto p-6 mt-10">
-      <h2 className="text-3xl font-bold text-center text-[#0f172a] mb-10">
-        My Education
-      </h2>
+    <section
+      className="
+        relative
+        min-h-screen
+        overflow-hidden
+        bg-[#020617]
+        px-6
+        py-32
+      "
+    >
+      {/* Background Glow */}
+      <div className="absolute top-20 left-10 w-80 h-80 bg-cyan-500/20 blur-[160px] rounded-full"></div>
 
-      {/* Timeline Container */}
-      <motion.div
-        className="relative border-l-4 border-[#3b82f6]"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }} // Trigger animation when 20% visible
-      >
-        {educationData.map((edu) => (
-          <motion.div
-            key={edu.id}
-            className="mb-10 ml-6"
-            variants={cardVariants}
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/20 blur-[170px] rounded-full"></div>
+
+      {/* Grid Pattern */}
+      <div
+        className="
+          absolute
+          inset-0
+          opacity-[0.04]
+          bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)]
+          bg-[size:60px_60px]
+        "
+      ></div>
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+        {/* Section Heading */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.7,
+          }}
+          className="text-center mb-24"
+        >
+          <p
+            className="
+              text-cyan-400
+              uppercase
+              tracking-[0.3em]
+              text-sm
+              font-medium
+            "
           >
-            {/* Timeline Dot */}
-            <div className="absolute flex items-center justify-center w-11 h-11 bg-[#3b82f6] rounded-full -left-12 mt-1 shadow-md">{edu.icon} </div>
+            Academic Journey
+          </p>
 
-            {/* Card */}
-            <div className="bg-white p-5 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold text-[#0f172a]">
-                {edu.title}
-              </h3>
-              <p className="text-gray-600">{edu.institution}</p>
-              <span className="block text-sm text-gray-500 mb-2">{edu.year}</span>
-              <p className="text-gray-700">{edu.description}</p>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+          <h2
+            className="
+              mt-4
+              text-5xl
+              md:text-6xl
+              font-black
+              text-white
+            "
+          >
+            My
+            <span
+              className="
+                bg-gradient-to-r
+                from-cyan-400
+                via-blue-500
+                to-purple-500
+                bg-clip-text
+                text-transparent
+              "
+            >
+              {" "}
+              Education
+            </span>
+          </h2>
+
+          <p
+            className="
+              mt-6
+              max-w-2xl
+              mx-auto
+              text-gray-400
+              text-lg
+              leading-relaxed
+            "
+          >
+            A timeline of my academic background, learning milestones, and
+            technical growth throughout my journey in technology.
+          </p>
+        </motion.div>
+
+        {/* Timeline */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          className="relative"
+        >
+          {/* Timeline Line */}
+          <div
+            className="
+              absolute
+              left-5
+              top-0
+              w-[3px]
+              h-full
+              bg-gradient-to-b
+              from-cyan-400
+              via-blue-500
+              to-purple-500
+              rounded-full
+            "
+          ></div>
+
+          <div className="space-y-16">
+            {educationData.map((edu) => (
+              <motion.div
+                key={edu.id}
+                variants={cardVariants}
+                className="
+                  relative
+                  flex
+                  items-start
+                  gap-8
+                "
+              >
+                {/* Timeline Icon */}
+                <motion.div
+                  whileHover={{
+                    scale: 1.1,
+                  }}
+                  className="
+                    relative
+                    z-10
+                    min-w-[44px]
+                    h-11
+                    rounded-full
+                    flex
+                    items-center
+                    justify-center
+                    bg-gradient-to-br
+                    from-cyan-500
+                    to-blue-600
+                    text-white
+                    text-xl
+                    shadow-lg
+                    shadow-cyan-500/30
+                  "
+                >
+                  {edu.icon}
+                </motion.div>
+
+                {/* Card */}
+                <motion.div
+                  whileHover={{
+                    y: -8,
+                  }}
+                  className="
+                    group
+                    relative
+                    overflow-hidden
+                    flex-1
+                    rounded-3xl
+                    border
+                    border-white/10
+                    bg-white/5
+                    backdrop-blur-2xl
+                    p-8
+                    shadow-[0_10px_60px_rgba(0,0,0,0.45)]
+                  "
+                >
+                  {/* Hover Glow */}
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      opacity-0
+                      group-hover:opacity-100
+                      transition-opacity
+                      duration-700
+                      bg-gradient-to-br
+                      from-cyan-500/10
+                      via-blue-500/5
+                      to-purple-500/10
+                    "
+                  ></div>
+
+                  {/* Year Badge */}
+                  <div
+                    className="
+                      absolute
+                      top-6
+                      right-6
+                      px-4
+                      py-1
+                      rounded-full
+                      bg-white/10
+                      border
+                      border-white/10
+                      text-cyan-300
+                      text-xs
+                      tracking-widest
+                      uppercase
+                      backdrop-blur-lg
+                    "
+                  >
+                    {edu.year}
+                  </div>
+
+                  <div className="relative z-10">
+                    <h3
+                      className="
+                        text-2xl
+                        font-bold
+                        text-white
+                        leading-snug
+                      "
+                    >
+                      {edu.title}
+                    </h3>
+
+                    <p
+                      className="
+                        mt-3
+                        text-cyan-300
+                        text-sm
+                        tracking-wide
+                      "
+                    >
+                      {edu.institution}
+                    </p>
+
+                    <p
+                      className="
+                        mt-5
+                        text-gray-400
+                        leading-relaxed
+                      "
+                    >
+                      {edu.description}
+                    </p>
+                  </div>
+
+                  {/* Bottom Accent */}
+                  <div
+                    className="
+                      absolute
+                      bottom-0
+                      left-0
+                      h-[3px]
+                      w-0
+                      group-hover:w-full
+                      bg-gradient-to-r
+                      from-cyan-400
+                      via-blue-500
+                      to-purple-500
+                      transition-all
+                      duration-700
+                    "
+                  ></div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 };
